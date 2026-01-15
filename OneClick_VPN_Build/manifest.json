@@ -1,0 +1,26 @@
+{
+  "name": "OneClick VPN (HTTP 8083)",
+  "version": "8.0.0",
+  "description": "HTTP Proxy Client on Port 8083",
+  "manifest_version": 3,
+  "permissions": [
+    "proxy",
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "notifications"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "OneClick VPN"
+  },
+  "icons": {
+    "128": "icon.png"
+  }
+}

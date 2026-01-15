@@ -1,0 +1,66 @@
+<!-- fancyindex_header.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>文件索引</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 2rem; max-width: 1200px; margin: 0 auto; color: #333; }
+        h1 { border-bottom: 2px solid #eaeaea; padding-bottom: 1rem; margin-bottom: 2rem; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { text-align: left; padding: 12px; background: #f8f9fa; border-bottom: 2px solid #dee2e6; cursor: pointer; }
+        td { padding: 12px; border-bottom: 1px solid #dee2e6; vertical-align: middle; }
+        tr:hover { background-color: #f8f9fa; }
+        a { text-decoration: none; color: #007bff; display: block; }
+        a:hover { color: #0056b3; text-decoration: underline; }
+        .size { font-family: monospace; color: #666; }
+        .date { color: #666; width: 200px; }
+        /* 图标美化 (可选) */
+        td:first-child a::before { content: "📄 "; }
+        tr:nth-child(2) td:first-child a::before { content: "📁 "; } /* Parent directory */
+    </style>
+</head>
+<body>
+    <h1>📂 文件列表</h1>
+    
+    <!-- 动态导航区域 -->
+    <div id="navigation" style="margin-bottom: 20px; font-size: 16px; background: #f1f3f5; padding: 10px; border-radius: 4px;">
+        <!-- JS 将在这里插入面包屑 -->
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+        <a href="/upload.html" style="display: inline-block; background: #28a745; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none;">📤 上传新文件</a>
+        <a href="/dashboard.html" style="display: inline-block; background: #007bff; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; margin-left: 10px;">⬇️ Aria2 下载中心</a>
+    </div>
+
+    <script>
+        (function() {
+            const path = window.location.pathname;
+            const parts = path.split('/').filter(p => p); // 去除空字符串
+            
+            let html = '<a href="/" style="display:inline; font-weight:bold;">🏠 首页</a>';
+            let currentPath = '/';
+            
+            // 生成面包屑
+            parts.forEach((part, index) => {
+                currentPath += part + '/';
+                const isLast = index === parts.length - 1;
+                html += ' <span style="color:#999;">/</span> ';
+                if (isLast) {
+                    html += `<span style="color:#333;">${decodeURIComponent(part)}</span>`;
+                } else {
+                    html += `<a href="${currentPath}" style="display:inline;">${decodeURIComponent(part)}</a>`;
+                }
+            });
+
+            // 如果不是根目录，添加“返回上一级”按钮
+            if (parts.length > 0) {
+                const parentPath = '/' + parts.slice(0, -1).join('/') + (parts.length > 1 ? '/' : '');
+                html += ` <a href="${parentPath}" style="float:right; display:inline; background:#6c757d; color:white; padding:2px 8px; border-radius:3px; font-size:12px;">⬆ 返回上一级</a>`;
+            }
+
+            document.getElementById('navigation').innerHTML = html;
+        })();
+    </script>
+    <!-- 列表开始 -->

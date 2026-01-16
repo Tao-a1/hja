@@ -1,13 +1,6 @@
-# 忽略视频和大文件
-*.mp4
-*.mkv
-*.iso
-*.zip
-*.gz
-
-# 忽略发布归档
-releases/
-
-# 忽略临时文件
-*.tmp
+node_modules/
+.DS_Store
 *.log
+*.pid
+.vscode/
+tmp/
